@@ -1,7 +1,10 @@
+
+# Initialize blockchain list
 blockchain = []
 
 
 def get_last_block_chain_value():
+    """ Returns the last value of the current blockchain """
     return blockchain[-1]
 
 
