@@ -26,27 +26,49 @@ def get_transaction_value():
     user_input = float(input('Your Transaction Amount Please: '))
     return user_input
 
+
 def get_user_choice():
     user_input = input('Your choice: ')
     return user_input
 
+
 def print_blockchain_elements():
     # Output the blockchain list to the console
     for block in blockchain:
-        print('\n Outputting Block')
+        print('-' * 20)
+        print('Outputting Block')
         print(block)
-        print('\n')
+    else:
+        print('-' * 20)
+
+
+def verify_chain():
+    # block_index = 0
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            continue          
+        if blockchain[block_index] [0] == blockchain[block_index - 1]:
+            is_valid = True
+        else:
+            is_valid = False
+            break
+    return is_valid;
+
 
 def exit_program():
-    print('\n Done!')
+    print('\n Done! \n')
     exit()
 
 
-while True:
+waiting_for_input = True
+
+while waiting_for_input:
     print('Please choose:')
     print('1: Add a new transaction value')
     print('2: Output the blockchain blocks')
     print('3: Quit')
+    print('H: Hack the chain')
     user_choice = get_user_choice()
     if user_choice == '1':
         tx_amount = get_transaction_value()
@@ -54,9 +76,17 @@ while True:
     elif user_choice == '2':
         print_blockchain_elements()
     elif user_choice == '3':
-        break
+        waiting_for_input = False
+    elif user_choice == 'H':
+        if len(blockchain) >= 1:
+            blockchain[0] = [2]
     else:
-        print(' \n ====== Input was invalid, please pick a value from the list! ====== \n ')
-    print('\n Choice registered \n')
+        print('====== Input was invalid, please pick a value from the list! ======')
+    if not verify_chain():
+        print_blockchain_elements()
+        print('Invalid Blockchain!')
+        break
+else:
+    print('User left!') 
 
 exit_program()
